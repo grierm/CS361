@@ -16,8 +16,8 @@ def web_scrape(site, prime, second):
     # primary_kw = input("Enter primary keyword: ")
     # secondary_kw = input("Enter secondary keyword: ")
     site = url + prime
-    primary_kw = prime
-    secondary_kw = second
+    primary_kw = prime.lower()
+    secondary_kw = second.lower()
 
     # list for the paragraph on the site
     word_list = []
@@ -26,9 +26,12 @@ def web_scrape(site, prime, second):
     # Ping the site for the data
     soup = BeautifulSoup(source_code, 'html.parser')
 
+    print(primary_kw, " ", secondary_kw)
+    #print(soup.get_text())
     # Search all <p> for the words
     for each_text in soup.findAll('p'):
         content = each_text.text
+        #print(content)
         #print(content)
         # Split the sentence into words
         words = content.lower().split()
@@ -41,8 +44,8 @@ def web_scrape(site, prime, second):
         #for each_word in words:
         #    if "puppy" in content:
         #        word_list.append(each_word)
+        #print(word_list)
 
-    #print(word_list[0])
 
     with open('output.csv', 'w', newline='') as output_file:
         header_names = ['input_keywords', 'output_content']
@@ -101,8 +104,8 @@ else:
     e2 = tkinter.Entry(top)
 
     def click_button():
-        pk = e1.get()
-        sk = e2.get()
+        pk = e1.get().lower()
+        sk = e2.get().lower()
         my_label = tkinter.Label(top, text="Output.csv created!")
         # my_label.pack()
         my_label.grid(row=3, column=1, pady=2)
